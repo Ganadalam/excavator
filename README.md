@@ -23,6 +23,8 @@ Next.js 15 · Prisma · PostgreSQL · JWT 인증 · 다크/라이트 모드 · V
 
 실제 현장 사용자(50대)를 타겟으로 글자 크기 조절, 모바일 바텀 시트, iOS 줌 방지 등 접근성에 집중했으며, 파일 기반 JSON → Prisma + SQLite → Vercel + Supabase PostgreSQL 순으로 직접 마이그레이션한 경험이 담겨 있습니다.
 
+## 배포 링크 : https://for-dad-seven.vercel.app/login
+
 ---
 
 ## ✨ 구현 기능
