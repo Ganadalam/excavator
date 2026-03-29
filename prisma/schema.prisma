@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+// ── Users ──────────────────────────────────────────────────
+model User {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("user")
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  companies  Company[]
+  equipments Equipment[]
+  works      Work[]
+}
+
+// ── Companies ──────────────────────────────────────────────
+model Company {
+  id            Int    @id @default(autoincrement())
+  userId        String
+  name          String
+  manager       String @default("")
+  contact       String @default("")
+  bizNo         String @default("")
+  contractStart String @default("")
+  address       String @default("")
+  mainContract  String @default("")
+  note          String @default("")
+
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  works Work[]
+
+  @@index([userId])
+}
+
+// ── Equipments ─────────────────────────────────────────────
+model Equipment {
+  id         Int    @id @default(autoincrement())
+  userId     String
+  name       String
+  type       String
+  model      String @default("")
+  year       Int
+  regno      String @default("")
+  operator   String @default("")
+  rate       Float  @default(0)
+  baseFuel   Float  @default(0)
+  insurer    String @default("")
+  insExpiry  String @default("")
+  insFee     Float  @default(0)
+  inspLast   String @default("")
+  inspNext   String @default("")
+  lease      Float  @default(0)
+  parking    Float  @default(0)
+  fixedOther Float  @default(0)
+  maintLast  String @default("")
+  maintNext  String @default("")
+  utilRate   Float  @default(0)
+  note       String @default("")
+
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  works     Work[]
+  maintLogs MaintenanceLog[]
+
+  @@index([userId])
+}
+
+// ── Maintenance Logs ───────────────────────────────────────
+model MaintenanceLog {
+  id          Int      @id @default(autoincrement())
+  equipmentId Int
+  date        String
+  type        String
+  cost        Float    @default(0)
+  shop        String   @default("")
+  note        String   @default("")
+  createdAt   DateTime @default(now())
+
+  equipment Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+
+  @@index([equipmentId])
+}
+
+// ── Works ──────────────────────────────────────────────────
+model Work {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  companyId   Int
+  equipmentId Int
+  date        String
+  rate        Float    @default(0)
+  otr         Float    @default(0)
+  hours       Float    @default(0)
+  ohours      Float    @default(0)
+  fuel        Float    @default(0)
+  extra       Float    @default(0)
+  note        String   @default("")
+  createdAt   DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company   Company   @relation(fields: [companyId], references: [id])
+  equipment Equipment @relation(fields: [equipmentId], references: [id])
+
+  @@index([userId])
+  @@index([userId, date])
+  @@index([companyId])
+  @@index([equipmentId])
+}

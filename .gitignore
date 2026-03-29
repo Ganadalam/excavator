@@ -1,0 +1,51 @@
+# ── Dependencies ──────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+
+# ── Next.js ───────────────────────────────────
+.next/
+out/
+build/
+
+# ── Environment variables ──────────────────────
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ── Database ───────────────────────────────────
+prisma/*.db
+prisma/*.db-journal
+prisma/*.db-wal
+prisma/*.db-shm
+.data/
+
+# ── Prisma generated client ────────────────────
+# (regenerated via `prisma generate` on build)
+# node_modules/@prisma/client  ← already covered above
+
+# ── Logs ──────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── OS / Editor ───────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── TypeScript ────────────────────────────────
+*.tsbuildinfo
+next-env.d.ts
+
+# ── Emergency backup (auto-generated) ────────────
+.backup/

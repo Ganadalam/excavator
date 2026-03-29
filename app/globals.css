@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ── Font scale ──────────────────────────────────────────
+     html class: font-normal (16px) | font-large (19px) | font-xlarge (22px)
+     All rem-based sizes scale automatically.
+     Fixed px classes are overridden below per scale level.
+  ── */
+  html.font-normal  { font-size: 16px; }
+  html.font-large   { font-size: 19px; }
+  html.font-xlarge  { font-size: 22px; }
+
+  /* Scale overrides for Tailwind arbitrary px classes */
+  html.font-large .text-\[9px\]   { font-size: 0.60rem !important; }
+  html.font-large .text-\[10px\]  { font-size: 0.68rem !important; }
+  html.font-large .text-\[11px\]  { font-size: 0.75rem !important; }
+  html.font-large .text-\[13px\]  { font-size: 0.88rem !important; }
+  html.font-large .text-\[15px\]  { font-size: 1.00rem !important; }
+  html.font-large .text-xs        { font-size: 0.82rem !important; }
+  html.font-large .text-sm        { font-size: 0.95rem !important; }
+  html.font-large .text-base      { font-size: 1.10rem !important; }
+  html.font-large .text-xl        { font-size: 1.35rem !important; }
+
+  html.font-xlarge .text-\[9px\]  { font-size: 0.70rem !important; }
+  html.font-xlarge .text-\[10px\] { font-size: 0.78rem !important; }
+  html.font-xlarge .text-\[11px\] { font-size: 0.86rem !important; }
+  html.font-xlarge .text-\[13px\] { font-size: 1.00rem !important; }
+  html.font-xlarge .text-\[15px\] { font-size: 1.12rem !important; }
+  html.font-xlarge .text-xs       { font-size: 0.94rem !important; }
+  html.font-xlarge .text-sm       { font-size: 1.08rem !important; }
+  html.font-xlarge .text-base     { font-size: 1.22rem !important; }
+  html.font-xlarge .text-xl       { font-size: 1.50rem !important; }
+
+  /* ── Dark mode (default) ── */
+  :root, .dark {
+    color-scheme: dark;
+    --color-bg:   #0b0d11;
+    --color-s1:   #111318;
+    --color-s2:   #181c24;
+    --color-s3:   #1f2430;
+    --color-s4:   #262d3d;
+    --color-bd:   #252d40;
+    --color-bd2:  #2e3850;
+    --color-acc:  #e8a020;
+    --color-acc2: #c88010;
+    --color-tx:   #dce2f0;
+    --color-tx2:  #7d8ba8;
+    --color-tx3:  #4a5570;
+    --color-grn:  #2ecc8a;
+    --color-red:  #e85050;
+    --color-blu:  #4a8ef5;
+    --color-orn:  #e07840;
+    --color-pur:  #9b6ef5;
+  }
+
+  /* ── Light mode ── */
+  .light {
+    color-scheme: light;
+    --color-bg:   #f4f6fb;
+    --color-s1:   #ffffff;
+    --color-s2:   #f0f2f8;
+    --color-s3:   #e8ecf5;
+    --color-s4:   #dde2ef;
+    --color-bd:   #d0d7ea;
+    --color-bd2:  #bcc5de;
+    --color-acc:  #c87a00;
+    --color-acc2: #a06000;
+    --color-tx:   #1a1f2e;
+    --color-tx2:  #4a5470;
+    --color-tx3:  #8a96b0;
+    --color-grn:  #1a9e68;
+    --color-red:  #d03030;
+    --color-blu:  #2a6ed5;
+    --color-orn:  #c05820;
+    --color-pur:  #7040d5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-tx);
+    transition: background-color 0.2s, color 0.2s;
+    /* Prevent text size adjust on mobile orientation change */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* ── Mobile touch targets ── min 44px per Apple HIG */
+  button, a, [role="button"] { min-height: 44px; }
+  /* But keep small inline buttons compact */
+  .btn-sm { min-height: 36px !important; }
+
+  /* ── Custom scrollbar ── */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--color-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--color-bd2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-tx3); }
+
+  /* ── Date input ── */
+  .dark  input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); cursor: pointer; }
+  .light input[type="date"]::-webkit-calendar-picker-indicator { filter: none; cursor: pointer; }
+
+  /* ── Number input ── */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button { opacity: 0.4; }
+
+  /* ── Mobile: larger inputs ── */
+  @media (max-width: 640px) {
+    input, select, textarea {
+      font-size: 16px !important; /* prevents iOS zoom on focus */
+      min-height: 44px;
+    }
+    /* Larger tap targets for table action buttons */
+    table button { min-width: 44px; min-height: 44px; }
+  }
+}
